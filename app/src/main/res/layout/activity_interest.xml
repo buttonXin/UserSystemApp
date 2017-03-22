@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的栏目"
+            android:textSize="18sp"
+            android:gravity="center"
+            />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_like"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击下面添加栏目或点击上面删除栏目"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:background="#d6d3d3"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_dislike"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

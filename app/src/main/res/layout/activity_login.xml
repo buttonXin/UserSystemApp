@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+
+    >
+
+
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:hint="手机号"
+        android:layout_marginBottom="17dp"
+        android:layout_above="@+id/edit_code"
+        android:layout_toStartOf="@+id/btn_code"/>
+
+    <EditText
+        android:id="@+id/edit_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="验证码"
+        android:inputType="phone"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/edit_phone"/>
+
+    <com.dopool.usersystem.ui.SecurityButton
+        android:id="@+id/btn_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取验证码"
+        android:padding="10dp"
+        android:layout_alignTop="@+id/edit_code"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="13dp"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:text="登录"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/btn_code"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>
