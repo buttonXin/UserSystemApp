@@ -63,7 +63,7 @@ android {
                 //Jenkins打包输出到服务器路径
                 timeNow = BUILD_TIME
                 //BUILD_PATH为服务器输出路径
-                outDirectory = "E:/tomcat/apache-tomcat-8.0.36/webapps/jenkins/apk"
+                outDirectory = "H:/auto_package_apk/apk"
                 //AutoBuildTest-v1.0.1-xiaomi-release.apk
                 newName = 'UserBuildTest-v' + APP_VERSION + /*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
             } else {
