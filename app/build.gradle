@@ -63,9 +63,9 @@ android {
                 //Jenkins打包输出到服务器路径
                 timeNow = BUILD_TIME
                 //BUILD_PATH为服务器输出路径
-                outDirectory = "H:/auto_package_apk/apk"
+                outDirectory = "H:/auto_package_apk/apk"+"/"+timeNow
                 //AutoBuildTest-v1.0.1-xiaomi-release.apk
-                newName = 'UserBuildTest-v' + APP_VERSION + /*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
+                newName = 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
             } else {
                 //本机打包输出在本机路径
                 timeNow = getDate()
@@ -74,7 +74,7 @@ android {
                     newName = "UserBuildTest-v${APP_VERSION}-debug.apk"
                 } else {
                     //AutoBuildTest-v1.0.1-xiaomi-release.apk
-                    newName = 'UserBuildTest-v' + APP_VERSION + /*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
+                    newName = 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
                 }
             }
             output.outputFile = new File(outDirectory+'/'+timeNow, newName)
