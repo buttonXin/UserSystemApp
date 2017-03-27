@@ -27,10 +27,10 @@ android {
             //而Jenkins打包用的是服务器上的KeyStore
             //两个路径不一样
 //            if("true".equals(IS_JENKINS)){
-//                storeFile file("服务器上KeyStore的路径")
+//                storeFile file("E:\\tomcat\\apache-tomcat-8.0.36\\webapps\\jenkins\\apk")
 //            }else {
                 storeFile file('user_test.jks')
-            //}
+          //  }
             keyAlias KEY_ALIAS
             keyPassword KEY_PASSWORD
             storePassword STORE_FILE_PASSWORD
@@ -59,14 +59,14 @@ android {
             //输出文件夹
             def outDirectory
             //是否为Jenkins打包，输出路径不同
-//            if ("true".equals(IS_JENKINS)) {
-//                //Jenkins打包输出到服务器路径
-//                timeNow = BUILD_TIME
-//                //BUILD_PATH为服务器输出路径
-//                outDirectory = BUILD_PATH
-//                //AutoBuildTest-v1.0.1-xiaomi-release.apk
-//                newName = 'AutoBuildTest-v' + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
-//            } else {
+            if ("true".equals(IS_JENKINS)) {
+                //Jenkins打包输出到服务器路径
+                timeNow = BUILD_TIME
+                //BUILD_PATH为服务器输出路径
+                outDirectory = "E:/tomcat/apache-tomcat-8.0.36/webapps/jenkins/apk"
+                //AutoBuildTest-v1.0.1-xiaomi-release.apk
+                newName = 'UserBuildTest-v' + APP_VERSION + /*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
+            } else {
                 //本机打包输出在本机路径
                 timeNow = getDate()
                 outDirectory = output.outputFile.getParent()
@@ -76,7 +76,7 @@ android {
                     //AutoBuildTest-v1.0.1-xiaomi-release.apk
                     newName = 'UserBuildTest-v' + APP_VERSION + /*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
                 }
-            //}
+            }
             output.outputFile = new File(outDirectory+'/'+timeNow, newName)
         }
     }
