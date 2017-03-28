@@ -130,8 +130,9 @@ def getVersionCode() {
         def versionCode = versionProps['VERSION_CODE'].toInteger()
         def runTasks = gradle.startParameter.taskNames
         //仅在assembleRelease任务是增加版本号
-        if ('assembleRelease' in runTasks) {
-            versionProps['VERSION_CODE'] = (++versionCode).toString()
+        if ('assemble' in runTasks || 'assembleRelease' in runTasks || 'aR' in runTasks) {
+            versionCode ++
+            versionProps['VERSION_CODE'] = versionCode.toString()
             versionProps.store(versionFile.newWriter(), null)
         }
         return versionCode
