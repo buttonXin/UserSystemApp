@@ -5,9 +5,6 @@ def getDate() {
     def formattedDate = date.format('yyyy-MM-dd-HH-mm')
     return formattedDate
 }
-def KEY_ALIAS = "user"
-def KEY_PASSWORD = "123456"
-def STORE_FILE_PASSWORD = "123456"
 
 android {
     compileSdkVersion 25
@@ -32,17 +29,15 @@ android {
 //            }else {
                 storeFile file('user_test.jks')
           //  }
-            keyAlias KEY_ALIAS
-            keyPassword KEY_PASSWORD
-            storePassword STORE_FILE_PASSWORD
+            keyAlias "user"
+            keyPassword "123456"
+            storePassword "123456"
         }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.signingConfig
         }
@@ -74,7 +69,7 @@ android {
                 if ('debug'.equals(variant.buildType.name)) {
                     newName = currentVersionCode + '-' + "UserBuildTest-v${APP_VERSION}-debug.apk"
                 } else {
-                    //AutoBuildTest-v1.0.1-xiaomi-release.apk
+                    //12-UserBuildTest-v-1.0.1-release.apk
                     newName =  currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
                 }
             }
