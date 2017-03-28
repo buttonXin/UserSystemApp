@@ -5,7 +5,6 @@ def getDate() {
     def formattedDate = date.format('yyyy-MM-dd-HH-mm')
     return formattedDate
 }
-def verCode = 1
 def KEY_ALIAS = "user"
 def KEY_PASSWORD = "123456"
 def STORE_FILE_PASSWORD = "123456"
@@ -13,11 +12,13 @@ def STORE_FILE_PASSWORD = "123456"
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    def currentVersionCode = getVersionCode()//获取当前的VersionCode
+
     defaultConfig {
         applicationId "com.dopool.usersystem"
-        minSdkVersion 21
+        minSdkVersion 25
         targetSdkVersion 25
-        versionCode verCode
+        versionCode currentVersionCode
         versionName APP_VERSION
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -63,9 +64,9 @@ android {
                 //Jenkins打包输出到服务器路径
                 timeNow = BUILD_TIME
                 //BUILD_PATH为服务器输出路径
-                outDirectory = "H:/auto_package_apk/apk"+"/"+timeNow
+                outDirectory = "H:/auto_package_apk/apk"
                 //AutoBuildTest-v1.0.1-xiaomi-release.apk
-                newName = 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
+                newName = currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
             } else {
                 //本机打包输出在本机路径
                 timeNow = getDate()
@@ -74,7 +75,7 @@ android {
                     newName = "UserBuildTest-v${APP_VERSION}-debug.apk"
                 } else {
                     //AutoBuildTest-v1.0.1-xiaomi-release.apk
-                    newName = 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
+                    newName = currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
                 }
             }
             output.outputFile = new File(outDirectory+'/'+timeNow, newName)
@@ -118,3 +119,25 @@ dependencies {
     compile 'com.huxq17.xrefreshview:xrefreshview:3.5.6'
     compile 'com.lcodecorex:tkrefreshlayout:1.0.6'
 }
+
+
+//这是获取code的方法
+def getVersionCode() {
+    def versionFile = file('version.properties')
+    if (versionFile.canRead()){
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()
+        def runTasks = gradle.startParameter.taskNames
+        //仅在assembleRelease任务是增加版本号
+        if ('assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++versionCode).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode
+    } else {
+        throw new GradleException("Could not find version.properties!")
+    }
+}
+
+
