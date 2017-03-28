@@ -65,7 +65,7 @@ android {
                 timeNow = BUILD_TIME
                 //BUILD_PATH为服务器输出路径
                 outDirectory = "H:/auto_package_apk/apk"
-                //AutoBuildTest-v1.0.1-xiaomi-release.apk
+                //AutoBuildTest-v1.0.1-release.apk
                 newName = currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
             } else {
                 //本机打包输出在本机路径
@@ -75,7 +75,7 @@ android {
                     newName = currentVersionCode + '-' + "UserBuildTest-v${APP_VERSION}-debug.apk"
                 } else {
                     //AutoBuildTest-v1.0.1-xiaomi-release.apk
-                    newName = currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
+                    newName =  currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
                 }
             }
             output.outputFile = new File(outDirectory+'/'+timeNow, newName)
@@ -121,26 +121,8 @@ dependencies {
 }
 
 
-//这是获取code的方法
-/*def getVersionCode() {
-    def versionFile = file('version.properties')
-    if (versionFile.canRead()){
-        def Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionFile))
-        def versionCode = versionProps['VERSION_CODE'].toInteger()
-        def runTasks = gradle.startParameter.taskNames
-        //仅在assembleRelease任务是增加版本号
-        if ('assemble' in runTasks || 'assembleRelease' in runTasks || 'aR' in runTasks) {
-            versionCode ++
-            versionProps['VERSION_CODE'] = gitVersionCode().toString()
-            versionProps.store(versionFile.newWriter(), null)
-        }
-        return versionCode
-    } else {
-        throw new GradleException("Could not find version.properties!")
-    }
-}*/
 
+//这是通过git提交的次数来进行code增加
 def gitVersionCode() {
     def cmd = 'git rev-list HEAD  --count'
     def code = cmd.execute().text.trim().toInteger()
