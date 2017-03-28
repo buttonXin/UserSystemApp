@@ -12,7 +12,7 @@ def STORE_FILE_PASSWORD = "123456"
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
-    def currentVersionCode = getVersionCode()//获取当前的VersionCode
+    def currentVersionCode = gitVersionCode()//获取当前的VersionCode
 
     defaultConfig {
         applicationId "com.dopool.usersystem"
@@ -72,7 +72,7 @@ android {
                 timeNow = getDate()
                 outDirectory = output.outputFile.getParent()
                 if ('debug'.equals(variant.buildType.name)) {
-                    newName = "UserBuildTest-v${APP_VERSION}-debug.apk"
+                    newName = currentVersionCode + '-' + "UserBuildTest-v${APP_VERSION}-debug.apk"
                 } else {
                     //AutoBuildTest-v1.0.1-xiaomi-release.apk
                     newName = currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
@@ -122,7 +122,7 @@ dependencies {
 
 
 //这是获取code的方法
-def getVersionCode() {
+/*def getVersionCode() {
     def versionFile = file('version.properties')
     if (versionFile.canRead()){
         def Properties versionProps = new Properties()
@@ -132,13 +132,18 @@ def getVersionCode() {
         //仅在assembleRelease任务是增加版本号
         if ('assemble' in runTasks || 'assembleRelease' in runTasks || 'aR' in runTasks) {
             versionCode ++
-            versionProps['VERSION_CODE'] = versionCode.toString()
+            versionProps['VERSION_CODE'] = gitVersionCode().toString()
             versionProps.store(versionFile.newWriter(), null)
         }
         return versionCode
     } else {
         throw new GradleException("Could not find version.properties!")
     }
-}
+}*/
 
+def gitVersionCode() {
+    def cmd = 'git rev-list HEAD  --count'
+    def code = cmd.execute().text.trim().toInteger()
+    return code
+}
 
