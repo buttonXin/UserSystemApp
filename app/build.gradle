@@ -63,9 +63,9 @@ android {
             if ("true".equals(IS_JENKINS)) {
                 //Jenkins打包输出到服务器路径
                 timeNow = BUILD_TIME
-                //BUILD_PATH为服务器输出路径
+                //这里可以放到服务器的输出路径中，就在服务器中生成，然后放到地址中
                 outDirectory = "H:/auto_package_apk/apk"
-                //AutoBuildTest-v1.0.1-release.apk
+                //12-UserBuildTest-v-1.0.1-release.apk
                 newName = currentVersionCode + '-' + 'UserBuildTest-v' + APP_VERSION + '-' + timeNow + '-'+/*'-' + variant.productFlavors[0].name + '-' +*/ variant.buildType.name + '.apk'
             } else {
                 //本机打包输出在本机路径
@@ -126,6 +126,6 @@ dependencies {
 def gitVersionCode() {
     def cmd = 'git rev-list HEAD  --count'
     def code = cmd.execute().text.trim().toInteger()
-    return code
+    return code + 10
 }
 
